@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -74,12 +76,21 @@ public class SafeWalkActivity extends AppCompatActivity {
     }
 
     private void stopTimer() {
-        countDownTimer.cancel();
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+        }
         timerRunning = false;
-        updateUiForTimerStopped();
-        Toast.makeText(this, "Timer cancelled. You are safe!", Toast.LENGTH_SHORT).show();
-        // Optionally close the activity
-        finish();
+        
+        Toast.makeText(this, "Timer cancelled. You are safe!", Toast.LENGTH_LONG).show();
+
+        // Disable the button to prevent multiple clicks and show the timer has stopped
+        imSafeButton.setEnabled(false);
+        countdownView.setAlpha(0.5f); // Dim the view to show it's inactive
+
+        // Wait for 2 seconds before closing the activity
+        new Handler(Looper.getMainLooper()).postDelayed(() -> {
+            finish();
+        }, 2000);
     }
 
     private void updateCountdownText(long millisUntilFinished) {
@@ -102,8 +113,8 @@ public class SafeWalkActivity extends AppCompatActivity {
         countdownView.setVisibility(View.VISIBLE);
     }
 
-    private void updateUiForTimerStopped() {
-        setupView.setVisibility(View.VISIBLE);
-        countdownView.setVisibility(View.GONE);
+    // This method is no longer needed as we don't return to the setup view
+    private void updateUiForTimerStopped() { 
+        // No longer reverting the UI, the activity will close
     }
 }
