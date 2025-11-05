@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_contacts"
+        android:title="Trusted Contacts"
+        android:icon="@android:drawable/ic_menu_myplaces"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_safe_walk"
+        android:title="Safe Walk"
+        android:icon="@android:drawable/ic_menu_compass"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_fake_call"
+        android:title="Fake Call"
+        android:icon="@android:drawable/ic_menu_call"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_safe_spots"
+        android:title="Safe Spots"
+        android:icon="@android:drawable/ic_dialog_map"
+        app:showAsAction="ifRoom" />
+</menu>

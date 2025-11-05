@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".ContactsActivity">
+
+    <TextView
+        android:id="@+id/title_contacts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="Trusted Contacts"
+        android:textColor="@color/primaryDarkRed"
+        android:textSize="28sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/subtitle_contacts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title_contacts"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="4dp"
+        android:text="These contacts will be alerted in an emergency."
+        android:textSize="16sp" />
+
+    <ListView
+        android:id="@+id/list_contacts"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/subtitle_contacts"
+        android:layout_above="@+id/button_add_contact"
+        android:layout_marginTop="16dp"
+        android:divider="@null"
+        android:dividerHeight="8dp"/>
+
+    <TextView
+        android:id="@+id/empty_list_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="No contacts yet. Add one below!"
+        android:textSize="18sp"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/button_add_contact"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="16dp"
+        android:backgroundTint="@color/primaryRed"
+        android:padding="12dp"
+        android:text="Add New Contact"
+        android:textColor="@color/white" />
+
+</RelativeLayout>

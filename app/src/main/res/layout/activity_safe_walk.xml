@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:padding="16dp"
+    tools:context=".SafeWalkActivity">
+
+    <!-- Title and Subtitle -->
+    <TextView
+        android:id="@+id/title_safe_walk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="Safe Walk Timer"
+        android:textColor="@color/primaryDarkRed"
+        android:textSize="28sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/subtitle_safe_walk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title_safe_walk"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="4dp"
+        android:gravity="center"
+        android:text="Set a timer. If it expires before you mark yourself safe, an SOS will be sent automatically."
+        android:textSize="16sp" />
+
+    <!-- Timer Setup View -->
+    <LinearLayout
+        android:id="@+id/setup_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Set Timer (in minutes)"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/edit_text_timer"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:hint="e.g., 15"
+            android:inputType="number"
+            android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/button_start_timer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="@color/primaryRed"
+            android:paddingStart="32dp"
+            android:paddingEnd="32dp"
+            android:text="Start Safe Walk"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+    <!-- Countdown View -->
+    <LinearLayout
+        android:id="@+id/countdown_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/text_countdown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/primaryDarkRed"
+            android:textSize="60sp"
+            android:textStyle="bold"
+            tools:text="14:59" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Time Remaining"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/button_im_safe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="#4CAF50"
+            android:paddingStart="40dp"
+            android:paddingEnd="40dp"
+            android:text="I'm Safe"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
+
+</RelativeLayout>
