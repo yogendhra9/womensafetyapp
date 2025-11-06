@@ -2,9 +2,19 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/action_safe_spots"
+        android:title="Safe Spots"
+        android:icon="@android:drawable/ic_dialog_map"
+        app:showAsAction="ifRoom" />
+    <item
         android:id="@+id/action_contacts"
         android:title="Trusted Contacts"
         android:icon="@android:drawable/ic_menu_myplaces"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_recordings"
+        android:title="My Recordings"
+        android:icon="@android:drawable/ic_menu_save"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_safe_walk"
@@ -14,11 +24,6 @@
     <item
         android:id="@+id/action_fake_call"
         android:title="Fake Call"
-        android:icon="@android:drawable/ic_menu_call"
-        app:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/action_safe_spots"
-        android:title="Safe Spots"
-        android:icon="@android:drawable/ic_dialog_map"
-        app:showAsAction="ifRoom" />
+        android:icon="@android:drawable/ic_dialog_dialer" 
+        app:showAsAction="never" />
 </menu>

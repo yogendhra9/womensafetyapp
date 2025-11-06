@@ -31,12 +31,12 @@ public class RecordingService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.d(TAG, "Recording service started.");
+        Log.d(TAG, "Recording service starting...");
 
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setContentTitle("Digital Guardian")
                 .setContentText("SOS Activated: Recording audio.")
-                .setSmallIcon(R.mipmap.ic_launcher) // CORRECTED: Use a valid icon
+                .setSmallIcon(R.mipmap.ic_launcher) // Use a valid icon
                 .build();
 
         startForeground(1, notification);
@@ -44,6 +44,52 @@ public class RecordingService extends Service {
         startRecording();
 
         return START_STICKY;
+    }
+
+    private void startRecording() {
+        // Use a more modern and compatible file format and extension
+        outputFile = getExternalFilesDir(null).getAbsolutePath() + "/SOS_Recording_" + System.currentTimeMillis() + ".mp4";
+
+        mediaRecorder = new MediaRecorder();
+        mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+        // Use a more modern and compatible output format and encoder
+        mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
+        mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AAC);
+        mediaRecorder.setOutputFile(outputFile);
+
+        try {
+            mediaRecorder.prepare();
+            mediaRecorder.start();
+            Log.d(TAG, "Recording started successfully. Output file: " + outputFile);
+            // Show toast in a separate thread to avoid potential UI issues
+            new android.os.Handler(android.os.Looper.getMainLooper()).post(() -> {
+                Toast.makeText(this, "Recording Started.", Toast.LENGTH_SHORT).show();
+            });
+        } catch (IOException | IllegalStateException e) {
+            Log.e(TAG, "MediaRecorder prepare() or start() failed", e);
+            // Show toast in a separate thread to avoid potential UI issues
+            new android.os.Handler(android.os.Looper.getMainLooper()).post(() -> {
+                Toast.makeText(this, "Error: Could not start audio recording.", Toast.LENGTH_LONG).show();
+            });
+            // Stop the service if recording fails to start
+            stopSelf(); 
+        }
+    }
+
+    private void stopRecording() {
+        if (mediaRecorder != null) {
+            try {
+                mediaRecorder.stop();
+                Log.d(TAG, "Recording stopped successfully.");
+            } catch (RuntimeException stopException) {
+                // This can happen if the service is stopped before the recording is properly started
+                Log.w(TAG, "RuntimeException while stopping recorder: " + stopException.getMessage());
+            } finally {
+                mediaRecorder.release();
+                mediaRecorder = null;
+                Log.d(TAG, "MediaRecorder released.");
+            }
+        }
     }
 
     @Override
@@ -69,37 +115,6 @@ public class RecordingService extends Service {
             NotificationManager manager = getSystemService(NotificationManager.class);
             if (manager != null) {
                 manager.createNotificationChannel(serviceChannel);
-            }
-        }
-    }
-
-    private void startRecording() {
-        outputFile = getExternalFilesDir(null).getAbsolutePath() + "/emergency_recording_" + System.currentTimeMillis() + ".3gp";
-
-        mediaRecorder = new MediaRecorder();
-        mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-        mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-        mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
-        mediaRecorder.setOutputFile(outputFile);
-
-        try {
-            mediaRecorder.prepare();
-            mediaRecorder.start();
-            Log.d(TAG, "Recording started. Output file: " + outputFile);
-        } catch (IOException e) {
-            Log.e(TAG, "prepare() failed", e);
-        }
-    }
-
-    private void stopRecording() {
-        if (mediaRecorder != null) {
-            try {
-                mediaRecorder.stop();
-                mediaRecorder.release();
-                mediaRecorder = null;
-                Log.d(TAG, "Recording stopped. File saved at: " + outputFile);
-            } catch (RuntimeException stopException) {
-                 Log.d(TAG, "Recording stop failed: " + stopException.getMessage());
             }
         }
     }

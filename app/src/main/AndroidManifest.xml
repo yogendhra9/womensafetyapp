@@ -3,17 +3,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.sankalp.womensafe">
 
+    <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MICROPHONE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS"
         tools:ignore="ProtectedPermissions" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
-    <uses-feature android:name="android.hardware.telephony" android:required="false" />
+    <uses-feature
+        android:name="android.hardware.telephony"
+        android:required="false" />
 
     <application
         android:allowBackup="true"
@@ -39,29 +42,33 @@
 
         <activity
             android:name=".ContactsActivity"
-            android:label="Trusted Contacts">
-        </activity>
+            android:label="Trusted Contacts" />
 
         <activity
             android:name=".SafeWalkActivity"
-            android:label="Safe Walk Timer">
-        </activity>
+            android:label="Safe Walk Timer" />
 
         <activity
             android:name=".FakeCallActivity"
             android:label="Fake Call"
-            android:theme="@style/Theme.AppCompat.NoActionBar">
-        </activity>
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
 
         <activity
             android:name=".SafeSpotsActivity"
-            android:label="Safe Spots">
-        </activity>
+            android:label="Safe Spots" />
 
-        <service android:name=".RecordingService" />
+        <activity
+            android:name=".RecordingsActivity"
+            android:label="My Recordings" />
+
+        <service 
+            android:name=".RecordingService"
+            android:foregroundServiceType="microphone" />
         <service android:name=".PowerButtonService" />
 
-        <receiver android:name=".BootReceiver" android:exported="false">
+        <receiver
+            android:name=".BootReceiver"
+            android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
